@@ -1,0 +1,53 @@
+name: publish image to ACR
+on:
+  repository_dispatch:
+    types: [trigger-to-publish-deploy-alpha]
+
+  workflow_dispatch:
+
+env:
+  REGISTRY_NAME: fintlabsacr
+  ALPHA_CLUSTER_NAME: aks-alpha-fint-2021-11-18
+  ALPHA_CLUSTER_RESOURCE_GROUP: rg-aks-alpha
+  API_CLUSTER_RESOURCE_GROUP: rg-aks-api
+  NAMESPACE: fint-core
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+
+      - name: Get repo name
+        id: get_repo
+        run: echo ::set-output name=REPO::${GITHUB_REPOSITORY#*/}
+
+      - name: Connect to Azure Container Registry (ACR)
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Container build and push to a Azure Container Registry (ACR)
+        run: |
+          docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+          docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+
+      - name: Set the target to Alpha cluster.
+        uses: azure/aks-set-context@v1
+        with:
+         creds: '${{ secrets.AKS_ALPHA_FINT_GITHUB }}'
+         cluster-name: ${{ env.ALPHA_CLUSTER_NAME }}
+         resource-group: ${{ env.ALPHA_CLUSTER_RESOURCE_GROUP }}
+
+      - name: Deploy to Alpha
+        uses: azure/k8s-deploy@v3.0
+        with:
+         manifests: |
+           k8s-alpha.yaml
+         images: |
+           ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+         namespace: ${{ env.NAMESPACE }}
