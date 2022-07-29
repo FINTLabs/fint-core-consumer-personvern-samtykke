@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  labels:
+    io.kompose.service: spring-boot-template-project
+  name: spring-boot-template-project
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+  type: LoadBalancer
+  selector:
+    io.kompose.service: spring-boot-template-project
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: spring-boot-template-project
+  name: spring-boot-template-project
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      io.kompose.service: spring-boot-template-project
+  template:
+    metadata:
+      labels:
+        io.kompose.service: spring-boot-template-project
+    spec:
+      restartPolicy: Always
+      containers:
+        - image: fintlabsacr.azurecr.io/spring-boot-template-project:build.${BUILD_NUMBER}_${GIT_COMMIT}
+          name: spring-boot-template-project
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TZ
+              value: Europe/Oslo
+            - name: JAVA_TOOL_OPTIONS
+              value: '-XX:+ExitOnOutOfMemoryError -Xmx480M -verbose:gc'
