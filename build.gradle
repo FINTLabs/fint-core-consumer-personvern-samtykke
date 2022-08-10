@@ -50,7 +50,7 @@ dependencies {
     }
     //implementation 'no.fintlabs:fint-core-consumer-shared:0-SNAPSHOT'
     implementation 'no.fintlabs:fint-core-consumer-shared:0.1.0-rc-2'
-    implementation 'no.fint:fint-personvern-resource-model-java:${apiVersion}'
+    implementation 'no.fint:fint-personvern-resource-model-java:3.10.0'
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
