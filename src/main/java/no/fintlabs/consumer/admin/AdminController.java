@@ -4,7 +4,7 @@ import no.fintlabs.cache.CacheManager;
 import no.fintlabs.consumer.config.RestEndpoints;
 import no.fintlabs.core.consumer.shared.ConsumerProps;
 import no.fintlabs.core.consumer.shared.admin.ConsumerAdminController;
-import no.fintlabs.core.consumer.shared.resource.ConsumerService;
+import no.fintlabs.core.consumer.shared.resource.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,14 +19,14 @@ import java.util.Collection;
 public class AdminController extends ConsumerAdminController {
 
     @Autowired(required = false)
-    private Collection<ConsumerService<?>> consumerServices;
+    private Collection<CacheService<?>> consumerServices;
 
     public AdminController(ConsumerProps consumerProps, CacheManager cacheManager) {
         super(cacheManager, consumerProps);
     }
 
     @Override
-    protected Collection<ConsumerService<?>> getConsumerServices() {
+    protected Collection<CacheService<?>> getConsumerServices() {
         return consumerServices;
     }
 }

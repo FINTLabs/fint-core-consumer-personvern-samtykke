@@ -1,6 +1,30 @@
+server:
+  port: 8080
+
 spring:
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: https://idp.felleskomponent.no/nidp/oauth/nam
+  kafka:
+    consumer:
+      group-id: # consumer-utdanning-vurdering-<your-instance-id>
+
+fint:
+  consumer:
+    org-id:
+  kafka:
+    application-id: consumer-personvern-samtykke
+    enable-ssl: true
+    topic:
+      org-id: fintlabs.no
+      domain-context: fint-core
+
+logging:
+  level:
+    root: INFO
+    #org.apache.kafka: DEBUG
+    org:
+      springframework:
+        security: INFO
