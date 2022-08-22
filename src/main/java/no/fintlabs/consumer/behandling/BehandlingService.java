@@ -24,7 +24,7 @@ public class BehandlingService extends CacheService<BehandlingResource> {
     private final BehandlingLinker linker;
 
     public BehandlingService(
-            ConsumerConfig<BehandlingResource> consumerConfig,
+            BehandlingConfig consumerConfig,
             CacheManager cacheManager,
             EntityKafkaConsumer<BehandlingResource> entityKafkaConsumer,
             BehandlingLinker linker) {

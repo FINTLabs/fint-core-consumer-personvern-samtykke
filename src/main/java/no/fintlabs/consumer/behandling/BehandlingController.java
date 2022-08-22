@@ -23,7 +23,7 @@ public class BehandlingController extends WriteableConsumerRestController<Behand
     public BehandlingController(
             CacheService<BehandlingResource> cacheService,
             FintLinker<BehandlingResource> fintLinker,
-            ConsumerConfig<BehandlingResource> consumerConfig,
+            BehandlingConfig consumerConfig,
             BehandlingEventKafkaProducer behandlingEventKafkaProducer) {
         super(cacheService, fintLinker, consumerConfig, behandlingEventKafkaProducer);
     }
