@@ -7,9 +7,11 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://idp.felleskomponent.no/nidp/oauth/nam
+  webflux:
+    base-path: /personvern/samtykke
   kafka:
     consumer:
-      group-id: # consumer-utdanning-vurdering-<your-instance-id>
+      group-id: # consumer-personvern-samtykke-<your-instance-id>
 
 fint:
   consumer:
