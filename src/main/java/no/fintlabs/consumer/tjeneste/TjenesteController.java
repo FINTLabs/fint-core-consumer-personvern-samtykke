@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @CrossOrigin
 @RestController
-@RequestMapping(name = "Behandling", value = RestEndpoints.TJENESTE, produces = {FintRelationsMediaType.APPLICATION_HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(name = "Tjeneste", value = RestEndpoints.TJENESTE, produces = {FintRelationsMediaType.APPLICATION_HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 public class TjenesteController extends WriteableConsumerRestController<TjenesteResource> {
 
     public TjenesteController(
