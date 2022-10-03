@@ -32,6 +32,10 @@ spec:
     metadata:
       labels:
         io.kompose.service: spring-boot-template-project
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "provider/actuator/prometheus"
     spec:
       restartPolicy: Always
       containers:
