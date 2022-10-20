@@ -1,0 +1,83 @@
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: aiven-kafka
+spec:
+  itemPath: "vaults/aks-alpha-vault/items/aiven-kafka"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: fint-core-consumer-utdanning-vurdering
+  name: fint-core-consumer-utdanning-vurdering
+spec:
+  ports:
+    - port: 8080
+  type: ClusterIP
+  selector:
+    io.kompose.service: fint-core-consumer-utdanning-vurdering
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: fint-core-consumer-utdanning-vurdering
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`alpha.felleskomponent.no`) && (PathPrefix( `/utdanning/vurdering`) || Path(`/utdanning/vurdering/admin`)) && Headers(`x-org-id`, `fintlabs.no`)
+      kind: Rule
+      services:
+        - name: fint-core-consumer-utdanning-vurdering
+          port: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: fint-core-consumer-utdanning-vurdering
+  name: fint-core-consumer-utdanning-vurdering
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      io.kompose.service: fint-core-consumer-utdanning-vurdering
+  template:
+    metadata:
+      labels:
+        io.kompose.service: fint-core-consumer-utdanning-vurdering
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: credentials
+          secret:
+            secretName: aiven-kafka-certificates
+      containers:
+        - image: fintlabsacr.azurecr.io/fint-core-consumer-utdanning-vurdering:dummy
+          name: fint-core-consumer-utdanning-vurdering
+          volumeMounts:
+            - name: credentials
+              mountPath: /credentials
+          resources:
+            limits:
+              memory: "1152Mi"
+              cpu: "1"
+            requests:
+              memory: "512Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: aiven-kafka
+          env:
+            - { name: TZ, value: Europe/Oslo }
+            - { name: JAVA_TOOL_OPTIONS, value: '-XX:+ExitOnOutOfMemoryError -Xmx480M' }
+            - { name: fint.consumer.org-id, value: 'fintlabs.no' }
+            - { name: fint.kafka.topic.org-id, value: 'fintlabs.no' }
+            - { name: spring.kafka.consumer.group-id, value: 'consumer-utdanning-vurdering-alpha' }
+            - { name: fint.relations.default-base-url, value: 'https://alpha.felleskomponent.no'}
