@@ -41,7 +41,7 @@ jobs:
           cluster-name: ${{ env.ALPHA_CLUSTER_NAME }}
           resource-group: ${{ env.ALPHA_CLUSTER_RESOURCE_GROUP }}
 
-      - name: Deploy to Alpha
+      - name: Deploy to Alpha - fintlabs.no
         uses: azure/k8s-deploy@v4.1
         with:
           manifests: k8s/alpha/fintlabs-no.yaml
@@ -50,28 +50,28 @@ jobs:
           action: deploy
 
       ## Beta cluster ##
-      - name: Set the target Beta cluster.
-        uses: azure/aks-set-context@v1
-        with:
-          creds: '${{ secrets.AKS_BETA_FINT_GITHUB }}'
-          cluster-name: ${{ env.BETA_CLUSTER_NAME }}
-          resource-group: ${{ env.BETA_CLUSTER_RESOURCE_GROUP }}
+#      - name: Set the target Beta cluster.
+#        uses: azure/aks-set-context@v1
+#        with:
+#          creds: '${{ secrets.AKS_BETA_FINT_GITHUB }}'
+#          cluster-name: ${{ env.BETA_CLUSTER_NAME }}
+#          resource-group: ${{ env.BETA_CLUSTER_RESOURCE_GROUP }}
 
-      - name: Deploy to Beta - fintlabs.no
-        uses: azure/k8s-deploy@v4.1
-        with:
-          manifests: k8s/beta/fintlabs-no.yaml
-          images: ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
-          namespace: fintlabs-no
-          action: deploy
+#      - name: Deploy to Beta - fintlabs.no
+#        uses: azure/k8s-deploy@v4.1
+#        with:
+#          manifests: k8s/beta/fintlabs-no.yaml
+#          images: ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+#          namespace: fintlabs-no
+#          action: deploy
 
-      - name: Deploy to Beta - visma.com
-        uses: azure/k8s-deploy@v4.1
-        with:
-          manifests: k8s/beta/visma-com.yaml
-          images: ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
-          namespace: visma-com
-          action: deploy
+#      - name: Deploy to Beta - visma.com
+#        uses: azure/k8s-deploy@v4.1
+#        with:
+#          manifests: k8s/beta/visma-com.yaml
+#          images: ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+#          namespace: visma-com
+#          action: deploy
 
       ## Api cluster ##
       #      - name: Set the target Api cluster.
