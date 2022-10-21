@@ -9,27 +9,27 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    io.kompose.service: fint-core-consumer-utdanning-vurdering
-  name: fint-core-consumer-utdanning-vurdering
+    io.kompose.service: fint-core-consumer-personvern-samtykke
+  name: fint-core-consumer-personvern-samtykke
 spec:
   ports:
     - port: 8080
   type: ClusterIP
   selector:
-    io.kompose.service: fint-core-consumer-utdanning-vurdering
+    io.kompose.service: fint-core-consumer-personvern-samtykke
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: fint-core-consumer-utdanning-vurdering
+  name: fint-core-consumer-personvern-samtykke
 spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`alpha.felleskomponent.no`) && (PathPrefix( `/utdanning/vurdering`) || Path(`/utdanning/vurdering/admin`)) && Headers(`x-org-id`, `fintlabs.no`)
+    - match: Host(`alpha.felleskomponent.no`) && (PathPrefix( `/personvern/samtykke`) || Path(`/personvern/samtykke/admin`)) && Headers(`x-org-id`, `fintlabs.no`)
       kind: Rule
       services:
-        - name: fint-core-consumer-utdanning-vurdering
+        - name: fint-core-consumer-personvern-samtykke
           port: 8080
 ---
 apiVersion: apps/v1
@@ -37,19 +37,19 @@ kind: Deployment
 metadata:
   annotations:
   labels:
-    io.kompose.service: fint-core-consumer-utdanning-vurdering
-  name: fint-core-consumer-utdanning-vurdering
+    io.kompose.service: fint-core-consumer-personvern-samtykke
+  name: fint-core-consumer-personvern-samtykke
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      io.kompose.service: fint-core-consumer-utdanning-vurdering
+      io.kompose.service: fint-core-consumer-personvern-samtykke
   template:
     metadata:
       labels:
-        io.kompose.service: fint-core-consumer-utdanning-vurdering
+        io.kompose.service: fint-core-consumer-personvern-samtykke
     spec:
       restartPolicy: Always
       volumes:
@@ -57,8 +57,8 @@ spec:
           secret:
             secretName: aiven-kafka-certificates
       containers:
-        - image: fintlabsacr.azurecr.io/fint-core-consumer-utdanning-vurdering:dummy
-          name: fint-core-consumer-utdanning-vurdering
+        - image: fintlabsacr.azurecr.io/fint-core-consumer-personvern-samtykke:dummy
+          name: fint-core-consumer-personvern-samtykke
           volumeMounts:
             - name: credentials
               mountPath: /credentials
@@ -79,5 +79,5 @@ spec:
             - { name: JAVA_TOOL_OPTIONS, value: '-XX:+ExitOnOutOfMemoryError -Xmx480M' }
             - { name: fint.consumer.org-id, value: 'fintlabs.no' }
             - { name: fint.kafka.topic.org-id, value: 'fintlabs.no' }
-            - { name: spring.kafka.consumer.group-id, value: 'consumer-utdanning-vurdering-alpha' }
+            - { name: spring.kafka.consumer.group-id, value: 'consumer-personvern-samtykke-alpha' }
             - { name: fint.relations.default-base-url, value: 'https://alpha.felleskomponent.no'}
