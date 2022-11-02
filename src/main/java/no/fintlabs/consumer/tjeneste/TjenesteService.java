@@ -26,7 +26,7 @@ public class TjenesteService extends CacheService<TjenesteResource> {
     public TjenesteService(
             TjenesteConfig consumerConfig,
             CacheManager cacheManager,
-            EntityKafkaConsumer<TjenesteResource> entityKafkaConsumer,
+            TjenesteEntityKafkaConsumer entityKafkaConsumer,
             TjenesteLinker linker) {
         super(consumerConfig, cacheManager, entityKafkaConsumer);
         this.entityKafkaConsumer = entityKafkaConsumer;
