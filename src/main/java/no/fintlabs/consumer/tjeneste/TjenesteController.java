@@ -20,7 +20,7 @@ public class TjenesteController extends WriteableConsumerRestController<Tjeneste
 
     public TjenesteController(
             CacheService<TjenesteResource> cacheService,
-            FintLinker<TjenesteResource> fintLinker,
+            TjenesteLinker fintLinker,
             TjenesteConfig consumerConfig,
             TjenesteEventKafkaProducer tjenesteEventKafkaProducer) {
         super(cacheService, fintLinker, consumerConfig, tjenesteEventKafkaProducer);

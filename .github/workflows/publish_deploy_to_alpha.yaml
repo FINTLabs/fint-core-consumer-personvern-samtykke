@@ -46,8 +46,6 @@ jobs:
       - name: Deploy to Alpha
         uses: azure/k8s-deploy@v3.0
         with:
-         manifests: |
-           k8s-alpha.yaml
-         images: |
-           ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
-         namespace: ${{ env.NAMESPACE }}
+         manifests: k8s/alpha/fintlabs-no.yaml
+         images: ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+         namespace: fintlabs-no

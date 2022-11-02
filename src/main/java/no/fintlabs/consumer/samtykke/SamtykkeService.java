@@ -26,7 +26,7 @@ public class SamtykkeService extends CacheService<SamtykkeResource> {
     public SamtykkeService(
             SamtykkeConfig consumerConfig,
             CacheManager cacheManager,
-            EntityKafkaConsumer<SamtykkeResource> entityKafkaConsumer,
+            SamtykkeEntityKafkaConsumer entityKafkaConsumer,
             SamtykkeLinker linker) {
         super(consumerConfig, cacheManager, entityKafkaConsumer);
         this.entityKafkaConsumer = entityKafkaConsumer;

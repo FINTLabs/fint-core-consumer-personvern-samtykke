@@ -26,7 +26,7 @@ public class BehandlingService extends CacheService<BehandlingResource> {
     public BehandlingService(
             BehandlingConfig consumerConfig,
             CacheManager cacheManager,
-            EntityKafkaConsumer<BehandlingResource> entityKafkaConsumer,
+            BehandlingEntityKafkaConsumer entityKafkaConsumer,
             BehandlingLinker linker) {
         super(consumerConfig, cacheManager, entityKafkaConsumer);
         this.entityKafkaConsumer = entityKafkaConsumer;
@@ -35,7 +35,7 @@ public class BehandlingService extends CacheService<BehandlingResource> {
 
     @Override
     protected Cache<BehandlingResource> initializeCache(CacheManager cacheManager, ConsumerConfig<BehandlingResource> consumerConfig, String s) {
-        return cacheManager.<BehandlingResource>create(PackingTypes.POJO, consumerConfig.getOrgId(), consumerConfig.getResourceName());
+        return cacheManager.create(PackingTypes.POJO, consumerConfig.getOrgId(), consumerConfig.getResourceName());
     }
 
     @PostConstruct
