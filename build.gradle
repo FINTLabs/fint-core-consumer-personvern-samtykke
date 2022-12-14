@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.5'
+    id 'org.springframework.boot' version '2.7.6'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'java'
     id 'groovy'
@@ -46,12 +46,11 @@ dependencies {
         exclude group: 'com.github.springfox.loader'
         exclude group: 'org.springframework.boot'
     }
-    //implementation 'no.fintlabs:fint-core-consumer-shared:0-SNAPSHOT'
-    implementation 'no.fintlabs:fint-core-consumer-shared:0.2.0-rc-1'
+    implementation 'no.fintlabs:fint-core-consumer-shared:0.2.0-rc-2'
     implementation 'no.fint:fint-personvern-resource-model-java:3.10.0'
-    implementation 'no.fintlabs:fint-core-infra-models:1.0.0-rc-13'
+    implementation 'no.fintlabs:fint-core-infra-models:1.0.0-rc-14'
 
-    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.84.Final:osx-aarch_64'
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.85.Final:osx-aarch_64'
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
