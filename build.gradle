@@ -1,9 +1,9 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.6'
+    id 'org.springframework.boot' version '2.7.7'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'java'
     id 'groovy'
-    id 'com.github.ben-manes.versions' version '0.43.0'
+    id 'com.github.ben-manes.versions' version '0.44.0'
 }
 
 group = 'no.fintlabs'
@@ -38,7 +38,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
     implementation 'no.fintlabs:fint-resource-server-security:1.1.1-rc-1'
-    implementation 'no.fintlabs:fint-kafka:2.3.0'
+    implementation 'no.fintlabs:fint-kafka:2.4.0'
     implementation 'no.fint:fint-personvern-resource-model-java:${apiVersion}'
     implementation 'no.fintlabs:fint-core-cache:0.2.0'
     implementation 'no.fint:fint-event-model:3.0.2'
@@ -50,7 +50,8 @@ dependencies {
     implementation 'no.fint:fint-personvern-resource-model-java:3.10.0'
     implementation 'no.fintlabs:fint-core-infra-models:1.0.0-rc-14'
 
-    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.85.Final:osx-aarch_64'
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.86.Final:osx-aarch_64'
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
@@ -60,8 +61,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'cglib:cglib-nodep:3.3.0'
-    testImplementation 'org.spockframework:spock-spring:2.3-groovy-4.0'
-    testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
+    testImplementation 'org.spockframework:spock-spring:2.4-M1-groovy-4.0'
+    testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'
 
     //testImplementation 'org.springframework.kafka:spring-kafka-test'
     //testImplementation 'org.springframework.security:spring-security-test'
