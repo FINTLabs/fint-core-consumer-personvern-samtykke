@@ -1,11 +1,13 @@
 package no.fintlabs;
 
+import no.fint.relations.annotations.EnableFintRelations;
 import no.fintlabs.cache.CacheObjectFactory;
 import no.fintlabs.cache.packing.PackingTypes;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+@EnableFintRelations
 @SpringBootApplication
 public class Application {
 
