@@ -12,16 +12,6 @@ import java.util.Map;
 @Service
 public class CoreConsumerConfig {
 
-    @Bean
-    public FintLinkMapper fintLinkMapper() {
-        return new FintLinkMapper();
-    }
-
-    @Bean
-    public FintRelationsProps getFintRelationsProps() {
-        return new FintRelationsProps();
-    }
-
     @Value("${spring.webflux.base-path:}")
     private String contextPath;
 
