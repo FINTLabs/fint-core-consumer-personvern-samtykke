@@ -46,7 +46,8 @@ dependencies {
         exclude group: 'com.github.springfox.loader'
         exclude group: 'org.springframework.boot'
     }
-    implementation 'no.fintlabs:fint-core-consumer-shared:0.2.1'
+    implementation 'no.fintlabs:fint-core-consumer-shared:0.3.0'
+    //implementation 'no.fintlabs:fint-core-consumer-shared:0.2.1'
     implementation 'no.fint:fint-personvern-resource-model-java:3.10.0'
     implementation 'no.fintlabs:fint-core-infra-models:1.0.0-rc-15'
 

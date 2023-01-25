@@ -23,7 +23,8 @@ public class SamtykkeController extends WriteableConsumerRestController<Samtykke
             CacheService<SamtykkeResource> cacheService,
             SamtykkeLinker fintLinker,
             SamtykkeConfig consumerConfig,
-            SamtykkeEventKafkaProducer samtykkeEventKafkaProducer) {
-        super(cacheService, fintLinker, consumerConfig, samtykkeEventKafkaProducer);
+            SamtykkeEventKafkaProducer samtykkeEventKafkaProducer,
+            SamtykkeResponseKafkaConsumer samtykkeResponseKafkaConsumer) {
+        super(cacheService, fintLinker, consumerConfig, samtykkeEventKafkaProducer, samtykkeResponseKafkaConsumer);
     }
 }
