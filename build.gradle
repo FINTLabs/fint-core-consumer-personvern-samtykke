@@ -48,7 +48,7 @@ dependencies {
     }
     implementation 'no.fintlabs:fint-core-consumer-shared:0.2.1'
     implementation 'no.fint:fint-personvern-resource-model-java:3.10.0'
-    implementation 'no.fintlabs:fint-core-infra-models:1.0.0-rc-15'
+    implementation 'no.fintlabs:fint-core-infra-models:1.0.0-rc-16'
 
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.86.Final:osx-aarch_64'
