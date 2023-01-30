@@ -1,8 +1,8 @@
 package no.fintlabs.consumer.tjeneste;
 
 import lombok.extern.slf4j.Slf4j;
+import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.personvern.samtykke.TjenesteResource;
-import no.fint.relations.FintLinker;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
 import no.fintlabs.core.consumer.shared.resource.CacheService;
@@ -23,7 +23,8 @@ public class TjenesteController extends WriteableConsumerRestController<Tjeneste
             TjenesteLinker fintLinker,
             TjenesteConfig consumerConfig,
             TjenesteEventKafkaProducer tjenesteEventKafkaProducer,
-            TjesnesteResponseKafkaConsumer tjesnesteResponseKafkaConsumer) {
-        super(cacheService, fintLinker, consumerConfig, tjenesteEventKafkaProducer, tjesnesteResponseKafkaConsumer);
+            TjesnesteResponseKafkaConsumer tjesnesteResponseKafkaConsumer,
+            FintFilterService odataFilterService) {
+        super(cacheService, fintLinker, consumerConfig, tjenesteEventKafkaProducer, tjesnesteResponseKafkaConsumer, odataFilterService);
     }
 }

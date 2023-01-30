@@ -1,6 +1,7 @@
 package no.fintlabs.consumer.behandling;
 
 import lombok.extern.slf4j.Slf4j;
+import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.personvern.samtykke.BehandlingResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
@@ -22,7 +23,8 @@ public class BehandlingController extends WriteableConsumerRestController<Behand
             BehandlingLinker fintLinker,
             BehandlingConfig behandlingConfig,
             BehandlingEventKafkaProducer behandlingEventKafkaProducer,
-            BehandlingResponseKafkaConsumer behandlingResponseKafkaConsumer) {
-        super(cacheService, fintLinker, behandlingConfig, behandlingEventKafkaProducer, behandlingResponseKafkaConsumer);
+            BehandlingResponseKafkaConsumer behandlingResponseKafkaConsumer,
+            FintFilterService odataFilterService) {
+        super(cacheService, fintLinker, behandlingConfig, behandlingEventKafkaProducer, behandlingResponseKafkaConsumer, odataFilterService);
     }
 }
