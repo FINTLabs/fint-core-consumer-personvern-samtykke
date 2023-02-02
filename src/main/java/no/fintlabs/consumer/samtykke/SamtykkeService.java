@@ -35,7 +35,7 @@ public class SamtykkeService extends CacheService<SamtykkeResource> {
 
     @Override
     protected Cache<SamtykkeResource> initializeCache(CacheManager cacheManager, ConsumerConfig<SamtykkeResource> consumerConfig, String s) {
-        return cacheManager.<SamtykkeResource>create(PackingTypes.POJO, consumerConfig.getOrgId(), consumerConfig.getResourceName());
+        return cacheManager.create(PackingTypes.POJO, consumerConfig.getOrgId(), consumerConfig.getResourceName());
     }
 
     @PostConstruct
@@ -45,11 +45,10 @@ public class SamtykkeService extends CacheService<SamtykkeResource> {
     }
 
     private void addResourceToCache(ConsumerRecord<String, SamtykkeResource> consumerRecord) {
+        this.eventLogger.logDataRecieved();
         SamtykkeResource fravarResource = consumerRecord.value();
         linker.mapLinks(fravarResource);
         this.getCache().put(consumerRecord.key(), fravarResource, linker.hashCodes(fravarResource));
-
-        //log.info("The cache now containes " + this.getCacheSize() + " elements.");
     }
 
     @Override

@@ -35,7 +35,7 @@ public class TjenesteService extends CacheService<TjenesteResource> {
 
     @Override
     protected Cache<TjenesteResource> initializeCache(CacheManager cacheManager, ConsumerConfig<TjenesteResource> consumerConfig, String s) {
-        return cacheManager.<TjenesteResource>create(PackingTypes.POJO, consumerConfig.getOrgId(), consumerConfig.getResourceName());
+        return cacheManager.create(PackingTypes.POJO, consumerConfig.getOrgId(), consumerConfig.getResourceName());
     }
 
     @PostConstruct
@@ -45,11 +45,10 @@ public class TjenesteService extends CacheService<TjenesteResource> {
     }
 
     private void addResourceToCache(ConsumerRecord<String, TjenesteResource> consumerRecord) {
+        this.eventLogger.logDataRecieved();
         TjenesteResource tjenesteResource = consumerRecord.value();
         linker.mapLinks(tjenesteResource);
         this.getCache().put(consumerRecord.key(), tjenesteResource, linker.hashCodes(tjenesteResource));
-
-        //log.info("The cache now containes " + this.getCacheSize() + " elements.");
     }
 
     @Override

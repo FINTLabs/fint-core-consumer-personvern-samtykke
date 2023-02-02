@@ -45,11 +45,10 @@ public class BehandlingService extends CacheService<BehandlingResource> {
     }
 
     private void addResourceToCache(ConsumerRecord<String, BehandlingResource> consumerRecord) {
+        this.eventLogger.logDataRecieved();
         BehandlingResource fravarResource = consumerRecord.value();
         linker.mapLinks(fravarResource);
         this.getCache().put(consumerRecord.key(), fravarResource, linker.hashCodes(fravarResource));
-
-        //log.info("The cache now containes " + this.getCacheSize() + " elements.");
     }
 
     @Override
