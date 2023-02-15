@@ -46,9 +46,13 @@ public class TjenesteService extends CacheService<TjenesteResource> {
 
     private void addResourceToCache(ConsumerRecord<String, TjenesteResource> consumerRecord) {
         this.eventLogger.logDataRecieved();
-        TjenesteResource tjenesteResource = consumerRecord.value();
-        linker.mapLinks(tjenesteResource);
-        this.getCache().put(consumerRecord.key(), tjenesteResource, linker.hashCodes(tjenesteResource));
+        TjenesteResource resource = consumerRecord.value();
+        if (resource == null) {
+            getCache().remove(consumerRecord.key());
+        } else {
+            linker.mapLinks(resource);
+            this.getCache().put(consumerRecord.key(), resource, linker.hashCodes(resource));
+        }
     }
 
     @Override

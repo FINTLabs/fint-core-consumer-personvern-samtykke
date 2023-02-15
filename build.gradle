@@ -40,17 +40,17 @@ dependencies {
     implementation 'no.fintlabs:fint-resource-server-security:1.1.1-rc-1'
     implementation 'no.fintlabs:fint-kafka:2.4.0'
     implementation 'no.fint:fint-personvern-resource-model-java:${apiVersion}'
-    implementation 'no.fintlabs:fint-core-cache:0.2.0'
+    implementation 'no.fintlabs:fint-core-cache:0.3.0'
     implementation 'no.fint:fint-event-model:3.0.2'
     implementation('no.fint:fint-relations:2.2.1') {
         exclude group: 'com.github.springfox.loader'
         exclude group: 'org.springframework.boot'
     }
 
-    implementation 'no.fintlabs:fint-core-consumer-shared:0.5.1'
+    implementation 'no.fintlabs:fint-core-consumer-shared:0.5.2'
     implementation 'no.fintlabs:fint-antlr:1.1.0'
     implementation 'no.fint:fint-personvern-resource-model-java:3.10.0'
-    implementation 'no.fintlabs:fint-core-infra-models:1.0.0-rc-16'
+    implementation 'no.fintlabs:fint-core-infra-models:1.1.0-rc-2'
 
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.86.Final:osx-aarch_64'
