@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fint-core-consumer-personvern-samtykke
+data:
+  TZ: 'Europe/Oslo'
+  JAVA_TOOLS_OPTIONS: '-XX:+ExitOnOutOfMemoryError -Xmx480M'
+  spring.webflux.base-path: '/personvern/samtykke'

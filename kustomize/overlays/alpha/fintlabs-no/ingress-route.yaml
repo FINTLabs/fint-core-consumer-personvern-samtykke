@@ -1,0 +1,13 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: fint-core-consumer-personvern-samtykke
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: "Host(`alpha.felleskomponent.no`) && (PathPrefix( `/personvern/samtykke`) || Path(`/personvern/samtykke/admin`)) && Headers(`x-org-id`, `fintlabs.no`)"
+      kind: Rule
+      services:
+        - name: fint-core-consumer-personvern-samtykke
+          port: 8080
