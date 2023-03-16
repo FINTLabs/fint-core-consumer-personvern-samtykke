@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fint-core-consumer-personvern-samtykke
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "personvern/samtykke/actuator/prometheus"
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: credentials
+          secret:
+            secretName: fint-core-consumer-personvern-samtykke-kafka-certificates
+      containers:
+        - image: ghcr.io/fintlabs/fint-core-consumer-personvern-samtykke:sha-0000000
+          name: fint-core-consumer-personvern-samtykke
+          volumeMounts:
+            - name: credentials
+              mountPath: /credentials
+          resources:
+            limits:
+              memory: "1152Mi"
+              cpu: "1"
+            requests:
+              memory: "512Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: fint-core-consumer-personvern-samtykke-kafka
+            - configMapRef:
+                name: fint-core-consumer-personvern-samtykke
