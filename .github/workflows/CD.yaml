@@ -3,6 +3,8 @@ name: CD
 on:
   repository_dispatch:
     types: [trigger-cd]
+  push:
+
 
 env:
   REGISTRY: ghcr.io
