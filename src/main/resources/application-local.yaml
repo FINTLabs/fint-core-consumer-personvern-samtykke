@@ -1,0 +1,24 @@
+server:
+  port : 8080
+
+fint:
+  kafka:
+    application-id: consumer-personvern-samtykke
+    enable-ssl: false
+    default-replicas: 1
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: consumer
+  webflux:
+    base-path: /personvern/samtykke
+  codec:
+    max-in-memory-size: 200MB
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus

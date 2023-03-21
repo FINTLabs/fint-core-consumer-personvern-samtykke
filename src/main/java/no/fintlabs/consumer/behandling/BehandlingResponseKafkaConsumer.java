@@ -2,9 +2,10 @@ package no.fintlabs.consumer.behandling;
 
 import no.fintlabs.core.consumer.shared.resource.event.EventResponseKafkaConsumer;
 import no.fintlabs.kafka.event.EventConsumerFactoryService;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class BehandlingResponseKafkaConsumer extends EventResponseKafkaConsumer {
 
     public BehandlingResponseKafkaConsumer(EventConsumerFactoryService eventConsumerFactoryService, BehandlingConfig behandlingConfig) {

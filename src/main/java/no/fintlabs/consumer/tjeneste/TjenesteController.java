@@ -7,6 +7,7 @@ import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
 import no.fintlabs.core.consumer.shared.resource.CacheService;
 import no.fintlabs.core.consumer.shared.resource.WriteableConsumerRestController;
+import no.fintlabs.core.consumer.shared.resource.event.EventRequestKafkaConsumer;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,15 @@ public class TjenesteController extends WriteableConsumerRestController<Tjeneste
             TjenesteConfig consumerConfig,
             TjenesteEventKafkaProducer tjenesteEventKafkaProducer,
             TjesnesteResponseKafkaConsumer tjesnesteResponseKafkaConsumer,
-            FintFilterService odataFilterService) {
-        super(cacheService, fintLinker, consumerConfig, tjenesteEventKafkaProducer, tjesnesteResponseKafkaConsumer, odataFilterService);
+            FintFilterService odataFilterService,
+            TjenesteRequestKafkaConsumer eventRequestKafkaConsumer) {
+        super(
+                cacheService,
+                fintLinker,
+                consumerConfig,
+                tjenesteEventKafkaProducer,
+                tjesnesteResponseKafkaConsumer,
+                odataFilterService,
+                eventRequestKafkaConsumer);
     }
 }
