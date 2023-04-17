@@ -16,6 +16,8 @@ spring:
 fint:
   consumer:
     org-id:
+    domain: utdanning
+    package: vurdering
   kafka:
     application-id: consumer-personvern-samtykke
     enable-ssl: true
