@@ -24,7 +24,8 @@ public class BehandlingController extends WriteableConsumerRestController<Behand
             BehandlingConfig behandlingConfig,
             BehandlingEventKafkaProducer behandlingEventKafkaProducer,
             BehandlingResponseKafkaConsumer behandlingResponseKafkaConsumer,
-            FintFilterService odataFilterService) {
-        super(cacheService, fintLinker, behandlingConfig, behandlingEventKafkaProducer, behandlingResponseKafkaConsumer, odataFilterService);
+            FintFilterService odataFilterService,
+            BehandlingRequestKafkaConsumer behandlingRequestKafkaConsumer) {
+        super(cacheService, fintLinker, behandlingConfig, behandlingEventKafkaProducer, behandlingResponseKafkaConsumer, odataFilterService, behandlingRequestKafkaConsumer);
     }
 }

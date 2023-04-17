@@ -3,6 +3,8 @@ name: CD
 on:
   repository_dispatch:
     types: [trigger-cd]
+  push:
+    branches: [CT-609-status-return-location-header]
 
 env:
   REGISTRY: ghcr.io
@@ -54,12 +56,12 @@ jobs:
       matrix:
         org:
 #          - fintlabs-no
-          - rogfk-no
+#          - rogfk-no
 #          - viken-no
 #          - visma-com
         cluster:
 #          - aks-alpha-fint-2021-11-18
-          - aks-beta-fint-2021-11-23
+#          - aks-beta-fint-2021-11-23
 #          - aks-api-fint-2022-02-08
 #          - aks-pwf-fint-2021-10-20
         include:

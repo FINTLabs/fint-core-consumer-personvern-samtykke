@@ -24,7 +24,8 @@ public class TjenesteController extends WriteableConsumerRestController<Tjeneste
             TjenesteConfig consumerConfig,
             TjenesteEventKafkaProducer tjenesteEventKafkaProducer,
             TjesnesteResponseKafkaConsumer tjesnesteResponseKafkaConsumer,
-            FintFilterService odataFilterService) {
-        super(cacheService, fintLinker, consumerConfig, tjenesteEventKafkaProducer, tjesnesteResponseKafkaConsumer, odataFilterService);
+            FintFilterService odataFilterService,
+            TjenesteRequestKafkaConsumer tjenesteRequestKafkaConsumer) {
+        super(cacheService, fintLinker, consumerConfig, tjenesteEventKafkaProducer, tjesnesteResponseKafkaConsumer, odataFilterService, tjenesteRequestKafkaConsumer);
     }
 }

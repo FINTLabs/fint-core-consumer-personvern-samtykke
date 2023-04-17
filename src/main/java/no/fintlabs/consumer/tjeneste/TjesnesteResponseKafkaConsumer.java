@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TjesnesteResponseKafkaConsumer extends EventResponseKafkaConsumer {
 
-    public TjesnesteResponseKafkaConsumer(EventConsumerFactoryService eventConsumerFactoryService, TjenesteConfig tjenesteConfig) {
-        super(eventConsumerFactoryService, tjenesteConfig);
+    public TjesnesteResponseKafkaConsumer(EventConsumerFactoryService eventConsumerFactoryService, TjenesteConfig tjenesteConfig, TjenesteLinker tjenesteLinker) {
+        super(eventConsumerFactoryService, tjenesteConfig, tjenesteLinker);
     }
 
 }

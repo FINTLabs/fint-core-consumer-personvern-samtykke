@@ -14,16 +14,6 @@ public class BehandlingConfig extends ConsumerConfig<BehandlingResource> {
     }
 
     @Override
-    protected String domainName() {
-        return "personvern";
-    }
-
-    @Override
-    protected String packageName() {
-        return "samtykke";
-    }
-
-    @Override
     protected String resourceName() {
         return "behandling";
     }

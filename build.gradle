@@ -42,13 +42,13 @@ dependencies {
     implementation "no.fint:fint-personvern-resource-model-java:${apiVersion}"
     implementation 'no.fintlabs:fint-core-cache:0.3.0'
     implementation 'no.fint:fint-event-model:3.0.2'
-    implementation('no.fint:fint-relations:2.2.1') {
+    implementation('no.fintlabs:fint-relations:2.2.2') {
         exclude group: 'com.github.springfox.loader'
         exclude group: 'org.springframework.boot'
     }
-    implementation 'no.fintlabs:fint-core-consumer-shared:0.5.2'
+    implementation 'no.fintlabs:fint-core-consumer-shared:0.6.0'
     implementation 'no.fintlabs:fint-antlr:1.1.1'
-    implementation 'no.fintlabs:fint-core-infra-models:1.1.0-rc-2'
+    implementation 'no.fintlabs:fint-core-infra-models:1.1.1'
 
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.89.Final:osx-aarch_64'

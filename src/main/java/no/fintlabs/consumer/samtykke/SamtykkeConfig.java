@@ -13,16 +13,6 @@ public class SamtykkeConfig extends ConsumerConfig<SamtykkeResource> {
     }
 
     @Override
-    protected String domainName() {
-        return "personvern";
-    }
-
-    @Override
-    protected String packageName() {
-        return "samtykke";
-    }
-
-    @Override
     protected String resourceName() {
         return "samtykke";
     }
