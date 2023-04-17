@@ -37,7 +37,7 @@ dependencies {
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
-    implementation 'no.fintlabs:fint-resource-server-security:1.1.1-rc-3'
+    implementation 'no.fintlabs:fint-resource-server-security:0-SNAPSHOT'
     implementation 'no.fintlabs:fint-kafka:2.4.0'
     implementation "no.fint:fint-personvern-resource-model-java:${apiVersion}"
     implementation 'no.fintlabs:fint-core-cache:0.3.0'
@@ -46,7 +46,7 @@ dependencies {
         exclude group: 'com.github.springfox.loader'
         exclude group: 'org.springframework.boot'
     }
-    implementation 'no.fintlabs:fint-core-consumer-shared:0.6.0'
+    implementation 'no.fintlabs:fint-core-consumer-shared:0-SNAPSHOT'
     implementation 'no.fintlabs:fint-antlr:1.1.1'
     implementation 'no.fintlabs:fint-core-infra-models:1.1.1'
 

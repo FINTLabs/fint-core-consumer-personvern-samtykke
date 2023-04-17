@@ -5,6 +5,5 @@ metadata:
 data:
   fint.consumer.org-id: 'fintlabs.no'
   fint.kafka.topic.org-id: 'fintlabs.no'
-
   spring.kafka.consumer.group-id: 'consumer-personvern-samtykke-alpha'
   fint.relations.default-base-url: 'https://alpha.felleskomponent.no'
