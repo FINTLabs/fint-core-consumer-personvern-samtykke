@@ -1,4 +1,4 @@
-package no.fintlabs.consumer.tjeneste;
+package no.fintlabs.consumer.model.tjeneste;
 
 import no.fint.model.resource.personvern.samtykke.TjenesteResource;
 import no.fintlabs.core.consumer.shared.ConsumerProps;

@@ -1,4 +1,4 @@
-package no.fintlabs.consumer.tjeneste;
+package no.fintlabs.consumer.model.tjeneste;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;

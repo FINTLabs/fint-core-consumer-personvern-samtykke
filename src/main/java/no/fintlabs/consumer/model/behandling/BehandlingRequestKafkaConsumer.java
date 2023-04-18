@@ -1,4 +1,4 @@
-package no.fintlabs.consumer.behandling;
+package no.fintlabs.consumer.model.behandling;
 
 import no.fint.model.resource.personvern.samtykke.BehandlingResource;
 import no.fintlabs.core.consumer.shared.resource.event.EventRequestKafkaConsumer;

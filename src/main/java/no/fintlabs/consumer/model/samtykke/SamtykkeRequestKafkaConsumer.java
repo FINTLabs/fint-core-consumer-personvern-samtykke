@@ -1,4 +1,4 @@
-package no.fintlabs.consumer.samtykke;
+package no.fintlabs.consumer.model.samtykke;
 
 import no.fint.model.resource.personvern.samtykke.SamtykkeResource;
 import no.fintlabs.core.consumer.shared.resource.event.EventRequestKafkaConsumer;
