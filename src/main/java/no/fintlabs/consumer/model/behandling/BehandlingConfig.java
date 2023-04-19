@@ -1,4 +1,4 @@
-package no.fintlabs.consumer.behandling;
+package no.fintlabs.consumer.model.behandling;
 
 import no.fint.model.resource.personvern.samtykke.BehandlingResource;
 import no.fintlabs.adapter.models.RequestFintEvent;
@@ -11,16 +11,6 @@ public class BehandlingConfig extends ConsumerConfig<BehandlingResource> {
 
     public BehandlingConfig(ConsumerProps consumerProps) {
         super(consumerProps);
-    }
-
-    @Override
-    protected String domainName() {
-        return "personvern";
-    }
-
-    @Override
-    protected String packageName() {
-        return "samtykke";
     }
 
     @Override

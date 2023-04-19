@@ -6,3 +6,6 @@ data:
   TZ: 'Europe/Oslo'
   JAVA_TOOLS_OPTIONS: '-XX:+ExitOnOutOfMemoryError -Xmx480M'
   spring.webflux.base-path: '/personvern/samtykke'
+  fint.kafka.topic.domain-context: 'fint-core'
+  fint.consumer.domain: 'personvern'
+  fint.consumer.package: 'samtykke'

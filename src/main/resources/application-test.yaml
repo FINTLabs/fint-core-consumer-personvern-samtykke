@@ -20,7 +20,7 @@ spring:
 
 fint:
   consumer:
-    org-id: rogfk.no
+    org-id: fintlabs.no
     domain: personvern
     package: samtykke
   kafka:
@@ -28,15 +28,17 @@ fint:
     enable-ssl: false
     default-replicas: 1
     topic:
-      org-id: rogfk.no
+      org-id: fintlabs.no
       domain-context: fint-core
 
 logging:
   level:
     root: INFO
-    #org.apache.kafka: DEBUG
+    no.fintlabs.kafka: WARN
     org:
+      apache.kafka: WARN
       springframework:
+        kafka: WARN
         security: INFO
 
 management:

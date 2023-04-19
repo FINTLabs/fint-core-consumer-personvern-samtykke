@@ -1,4 +1,4 @@
-package no.fintlabs.consumer.tjeneste;
+package no.fintlabs.consumer.model.tjeneste;
 
 import no.fint.model.resource.personvern.samtykke.TjenesteResource;
 import no.fintlabs.core.consumer.shared.ConsumerProps;
@@ -10,16 +10,6 @@ public class TjenesteConfig extends ConsumerConfig<TjenesteResource> {
 
     public TjenesteConfig(ConsumerProps consumerProps) {
         super(consumerProps);
-    }
-
-    @Override
-    protected String domainName() {
-        return "personvern";
-    }
-
-    @Override
-    protected String packageName() {
-        return "samtykke";
     }
 
     @Override

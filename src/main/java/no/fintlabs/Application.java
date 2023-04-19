@@ -1,5 +1,7 @@
 package no.fintlabs;
 
+import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.EnableFintFilter;
 import no.fint.relations.annotations.EnableFintRelations;
 import no.fintlabs.cache.CacheObjectFactory;
@@ -8,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+@Slf4j
 @EnableFintFilter
 @EnableFintRelations
 @SpringBootApplication
@@ -22,4 +25,5 @@ public class Application {
     public CacheObjectFactory getFintCache() {
         return new CacheObjectFactory<>(PackingTypes.DEFLATE);
     }
+
 }

@@ -1,8 +1,8 @@
-package no.fintlabs.consumer.behandling;
+package no.fintlabs.consumer.model.samtykke;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.model.felles.kompleksedatatyper.Identifikator;
-import no.fint.model.resource.personvern.samtykke.BehandlingResource;
+import no.fint.model.resource.personvern.samtykke.SamtykkeResource;
 import no.fintlabs.cache.Cache;
 import no.fintlabs.cache.CacheManager;
 import no.fintlabs.cache.packing.PackingTypes;
@@ -17,36 +17,36 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class BehandlingService extends CacheService<BehandlingResource> {
+public class SamtykkeService extends CacheService<SamtykkeResource> {
 
-    private final EntityKafkaConsumer<BehandlingResource> entityKafkaConsumer;
+    private final EntityKafkaConsumer<SamtykkeResource> entityKafkaConsumer;
 
-    private final BehandlingLinker linker;
+    private final SamtykkeLinker linker;
 
-    public BehandlingService(
-            BehandlingConfig consumerConfig,
+    public SamtykkeService(
+            SamtykkeConfig consumerConfig,
             CacheManager cacheManager,
-            BehandlingEntityKafkaConsumer entityKafkaConsumer,
-            BehandlingLinker linker) {
+            SamtykkeEntityKafkaConsumer entityKafkaConsumer,
+            SamtykkeLinker linker) {
         super(consumerConfig, cacheManager, entityKafkaConsumer);
         this.entityKafkaConsumer = entityKafkaConsumer;
         this.linker = linker;
     }
 
     @Override
-    protected Cache<BehandlingResource> initializeCache(CacheManager cacheManager, ConsumerConfig<BehandlingResource> consumerConfig, String s) {
+    protected Cache<SamtykkeResource> initializeCache(CacheManager cacheManager, ConsumerConfig<SamtykkeResource> consumerConfig, String s) {
         return cacheManager.create(PackingTypes.POJO, consumerConfig.getOrgId(), consumerConfig.getResourceName());
     }
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(BehandlingResource.class, this::addResourceToCache);
+        long retention = entityKafkaConsumer.registerListener(SamtykkeResource.class, this::addResourceToCache);
         getCache().setRetentionPeriodInMs(retention);
     }
 
-    private void addResourceToCache(ConsumerRecord<String, BehandlingResource> consumerRecord) {
+    private void addResourceToCache(ConsumerRecord<String, SamtykkeResource> consumerRecord) {
         this.eventLogger.logDataRecieved();
-        BehandlingResource resource = consumerRecord.value();
+        SamtykkeResource resource = consumerRecord.value();
         if (resource == null) {
             getCache().remove(consumerRecord.key());
         } else {
@@ -56,11 +56,11 @@ public class BehandlingService extends CacheService<BehandlingResource> {
     }
 
     @Override
-    public Optional<BehandlingResource> getBySystemId(String systemId) {
+    public Optional<SamtykkeResource> getBySystemId(String systemId) {
         return getCache().getLastUpdatedByFilter(systemId.hashCode(),
                 (resource) -> Optional
                         .ofNullable(resource)
-                        .map(BehandlingResource::getSystemId)
+                        .map(SamtykkeResource::getSystemId)
                         .map(Identifikator::getIdentifikatorverdi)
                         .map(systemId::equals)
                         .orElse(false)

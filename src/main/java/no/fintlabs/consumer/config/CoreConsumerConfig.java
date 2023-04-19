@@ -1,17 +1,28 @@
 package no.fintlabs.consumer.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 
-@Service
+@Slf4j
+@Configuration
 public class CoreConsumerConfig {
+
+    @Value("${fint.consumer.org-id}")
+    private String orgId;
 
     @Value("${spring.webflux.base-path:}")
     private String contextPath;
+
+    @PostConstruct
+    private void logAtStartup() {
+        log.info("OrgId: {}", orgId);
+    }
 
     @Qualifier("linkMapper")
     @Bean

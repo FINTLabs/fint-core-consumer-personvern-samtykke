@@ -1,4 +1,4 @@
-package no.fintlabs.consumer.samtykke;
+package no.fintlabs.consumer.model.samtykke;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
@@ -24,7 +24,8 @@ public class SamtykkeController extends WriteableConsumerRestController<Samtykke
             SamtykkeConfig samtykkeConfig,
             SamtykkeEventKafkaProducer samtykkeEventKafkaProducer,
             SamtykkeResponseKafkaConsumer samtykkeResponseKafkaConsumer,
-            FintFilterService odataFilterService) {
-        super(cacheService, fintLinker, samtykkeConfig, samtykkeEventKafkaProducer, samtykkeResponseKafkaConsumer, odataFilterService);
+            FintFilterService odataFilterService,
+            SamtykkeRequestKafkaConsumer samtykkeRequestKafkaConsumer) {
+        super(cacheService, fintLinker, samtykkeConfig, samtykkeEventKafkaProducer, samtykkeResponseKafkaConsumer, odataFilterService, samtykkeRequestKafkaConsumer);
     }
 }

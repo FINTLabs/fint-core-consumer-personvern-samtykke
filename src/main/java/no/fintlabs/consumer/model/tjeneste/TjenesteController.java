@@ -1,4 +1,4 @@
-package no.fintlabs.consumer.tjeneste;
+package no.fintlabs.consumer.model.tjeneste;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
@@ -24,7 +24,8 @@ public class TjenesteController extends WriteableConsumerRestController<Tjeneste
             TjenesteConfig consumerConfig,
             TjenesteEventKafkaProducer tjenesteEventKafkaProducer,
             TjesnesteResponseKafkaConsumer tjesnesteResponseKafkaConsumer,
-            FintFilterService odataFilterService) {
-        super(cacheService, fintLinker, consumerConfig, tjenesteEventKafkaProducer, tjesnesteResponseKafkaConsumer, odataFilterService);
+            FintFilterService odataFilterService,
+            TjenesteRequestKafkaConsumer tjenesteRequestKafkaConsumer) {
+        super(cacheService, fintLinker, consumerConfig, tjenesteEventKafkaProducer, tjesnesteResponseKafkaConsumer, odataFilterService, tjenesteRequestKafkaConsumer);
     }
 }
