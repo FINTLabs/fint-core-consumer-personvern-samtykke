@@ -13,6 +13,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @Slf4j
@@ -23,14 +24,17 @@ public class SamtykkeService extends CacheService<SamtykkeResource> {
 
     private final SamtykkeLinker linker;
 
+    private final SamtykkeResponseKafkaConsumer samtykkeResponseKafkaConsumer;
+
     public SamtykkeService(
             SamtykkeConfig consumerConfig,
             CacheManager cacheManager,
             SamtykkeEntityKafkaConsumer entityKafkaConsumer,
-            SamtykkeLinker linker) {
+            SamtykkeLinker linker, SamtykkeResponseKafkaConsumer samtykkeResponseKafkaConsumer) {
         super(consumerConfig, cacheManager, entityKafkaConsumer);
         this.entityKafkaConsumer = entityKafkaConsumer;
         this.linker = linker;
+        this.samtykkeResponseKafkaConsumer = samtykkeResponseKafkaConsumer;
     }
 
     @Override
@@ -52,6 +56,11 @@ public class SamtykkeService extends CacheService<SamtykkeResource> {
         } else {
             linker.mapLinks(resource);
             this.getCache().put(consumerRecord.key(), resource, linker.hashCodes(resource));
+            if (consumerRecord.headers().lastHeader("event-corr-id") != null){
+                String corrId = new String(consumerRecord.headers().lastHeader("event-corr-id").value(), StandardCharsets.UTF_8);
+                log.debug("Adding corrId to EntityResponseCache: {}", corrId);
+                samtykkeResponseKafkaConsumer.getEntityCache().add(corrId, resource);
+            }
         }
     }
 
