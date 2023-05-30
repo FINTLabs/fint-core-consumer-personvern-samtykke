@@ -91,7 +91,10 @@ jobs:
           renderEngine: 'kustomize'
           kustomizationPath: 'kustomize/overlays/${{ steps.environment.outputs.result }}/${{ matrix.org }}'
 
-      - uses: azure/setup-kubectl@v3
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          kubectl-version: 'latest'
 
       - uses: azure/login@v1
         with:
