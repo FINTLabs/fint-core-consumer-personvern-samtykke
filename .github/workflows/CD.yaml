@@ -91,7 +91,7 @@ jobs:
           renderEngine: 'kustomize'
           kustomizationPath: 'kustomize/overlays/${{ steps.environment.outputs.result }}/${{ matrix.org }}'
 
-      - uses: azure/setup-kubectl@v2.0
+      - uses: azure/setup-kubectl@v3
 
       - uses: azure/login@v1
         with:
