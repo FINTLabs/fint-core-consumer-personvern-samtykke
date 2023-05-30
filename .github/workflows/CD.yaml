@@ -91,12 +91,14 @@ jobs:
           renderEngine: 'kustomize'
           kustomizationPath: 'kustomize/overlays/${{ steps.environment.outputs.result }}/${{ matrix.org }}'
 
-      - name: Set the target cluster
-        uses: azure/aks-set-context@v1
+      - uses: azure/login@v1
         with:
           creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
-          cluster-name: '${{ matrix.cluster }}'
+
+      - uses: azure/aks-set-context@v3
+        with:
           resource-group: '${{ steps.resource-group.outputs.result }}'
+          cluster-name: '${{ matrix.cluster }}'
 
       - name: Deploy
         uses: azure/k8s-deploy@v4.9
