@@ -98,15 +98,11 @@ jobs:
 #        with:
 #          kubectl-version: 'latest'
 
-      - uses: azure/use-kubelogin@v1
-        with:
-          kubelogin-version: 'latest'
-
       - uses: azure/login@v1
         with:
           creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
 
-      - uses: azure/aks-set-context@v3
+      - uses: azure/aks-set-context@v1
         with:
           resource-group: '${{ steps.resource-group.outputs.result }}'
           cluster-name: '${{ matrix.cluster }}'
