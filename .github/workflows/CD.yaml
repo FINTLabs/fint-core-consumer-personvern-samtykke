@@ -98,12 +98,13 @@ jobs:
 #        with:
 #          kubectl-version: 'latest'
 
-      - uses: azure/login@v1
-        with:
-          creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
+#      - uses: azure/login@v1
+#        with:
+#          creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
 
       - uses: azure/aks-set-context@v1
         with:
+          creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
           resource-group: '${{ steps.resource-group.outputs.result }}'
           cluster-name: '${{ matrix.cluster }}'
 
