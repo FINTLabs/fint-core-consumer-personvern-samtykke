@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fint-core-consumer-personvern-samtykke
+data:
+  fint.consumer.org-id: 'rogfk.no'
+  fint.kafka.topic.org-id: 'rogfk.no'
+  spring.kafka.consumer.group-id: 'consumer-personvern-samtykke-beta'
+  fint.relations.default-base-url: 'https://api.felleskomponent.no'
