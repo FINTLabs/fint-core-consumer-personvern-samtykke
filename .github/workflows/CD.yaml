@@ -17,6 +17,7 @@ jobs:
       packages: write
     outputs:
       tags: ${{ steps.meta.outputs.tags }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3.5.2
@@ -96,6 +97,10 @@ jobs:
 #        uses: azure/setup-kubectl@v3
 #        with:
 #          kubectl-version: 'latest'
+
+      - uses: azure/use-kubelogin@v1
+        with:
+          kubelogin-version: 'latest'
 
       - uses: azure/login@v1
         with:
