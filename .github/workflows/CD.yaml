@@ -20,10 +20,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4.0.0
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v2.1.0
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -37,7 +37,7 @@ jobs:
           tags: type=sha,enable=true,priority=100,prefix=shaF-,suffix=,format=short
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
@@ -71,7 +71,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4
 
       - name: Get environment
         uses: actions/github-script@v6
@@ -89,7 +89,7 @@ jobs:
 
       - name: Bake manifests with Kustomize
         id: bake
-        uses: azure/k8s-bake@v2.4
+        uses: azure/k8s-bake@v2
         with:
           renderEngine: 'kustomize'
           kustomizationPath: 'kustomize/overlays/${{ steps.environment.outputs.result }}/${{ matrix.org }}'
@@ -103,9 +103,16 @@ jobs:
 #        with:
 #          creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
 
-      - uses: azure/aks-set-context@v1
+      - uses: azure/login@v1
         with:
           creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
+
+      - uses: azure/use-kubelogin@v1.1
+        with:
+          kubelogin-version: 'v0.0.26'
+
+      - uses: azure/aks-set-context@v3
+        with:
           resource-group: '${{ steps.resource-group.outputs.result }}'
           cluster-name: '${{ matrix.cluster }}'
 
