@@ -8,8 +8,8 @@ spring:
 fint:
   consumer:
     org-id:
-    domain:
-    package:
+    domain: personvern
+    package: samtykke
   kafka:
     application-id: consumer-personvern-samtykke
     enable-ssl: true
