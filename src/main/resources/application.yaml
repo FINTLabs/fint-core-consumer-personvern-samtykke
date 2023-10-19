@@ -1,12 +1,4 @@
-server:
-  port: 8080
-
 spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://idp.felleskomponent.no/nidp/oauth/nam
   webflux:
     base-path: /personvern/samtykke
   kafka:
