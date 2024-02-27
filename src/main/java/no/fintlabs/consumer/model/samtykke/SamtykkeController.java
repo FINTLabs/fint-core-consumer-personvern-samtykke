@@ -1,8 +1,10 @@
 package no.fintlabs.consumer.model.samtykke;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.personvern.samtykke.SamtykkeResource;
+import no.fint.model.resource.personvern.samtykke.TjenesteResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
 import no.fintlabs.core.consumer.shared.resource.CacheService;
@@ -28,4 +30,10 @@ public class SamtykkeController extends WriteableConsumerRestController<Samtykke
             SamtykkeRequestKafkaConsumer samtykkeRequestKafkaConsumer) {
         super(cacheService, fintLinker, samtykkeConfig, samtykkeEventKafkaProducer, samtykkeResponseKafkaConsumer, odataFilterService, samtykkeRequestKafkaConsumer);
     }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("systemid", SamtykkeResource::getSystemId);
+    }
+
 }

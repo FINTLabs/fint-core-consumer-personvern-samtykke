@@ -1,7 +1,9 @@
 package no.fintlabs.consumer.model.tjeneste;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
+import no.fint.model.resource.felles.PersonResource;
 import no.fint.model.resource.personvern.samtykke.TjenesteResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
@@ -28,4 +30,10 @@ public class TjenesteController extends WriteableConsumerRestController<Tjeneste
             TjenesteRequestKafkaConsumer tjenesteRequestKafkaConsumer) {
         super(cacheService, fintLinker, consumerConfig, tjenesteEventKafkaProducer, tjesnesteResponseKafkaConsumer, odataFilterService, tjenesteRequestKafkaConsumer);
     }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("systemid", TjenesteResource::getSystemId);
+    }
+
 }

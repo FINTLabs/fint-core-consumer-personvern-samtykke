@@ -1,8 +1,10 @@
 package no.fintlabs.consumer.model.behandling;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.personvern.samtykke.BehandlingResource;
+import no.fint.model.resource.personvern.samtykke.TjenesteResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
 import no.fintlabs.core.consumer.shared.resource.CacheService;
@@ -28,4 +30,10 @@ public class BehandlingController extends WriteableConsumerRestController<Behand
             BehandlingRequestKafkaConsumer behandlingRequestKafkaConsumer) {
         super(cacheService, fintLinker, behandlingConfig, behandlingEventKafkaProducer, behandlingResponseKafkaConsumer, odataFilterService, behandlingRequestKafkaConsumer);
     }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("systemid", BehandlingResource::getSystemId);
+    }
+
 }
