@@ -11,8 +11,10 @@ import no.fintlabs.core.consumer.shared.resource.CacheService;
 import no.fintlabs.core.consumer.shared.resource.ConsumerConfig;
 import no.fintlabs.core.consumer.shared.resource.kafka.EntityKafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.header.Header;
 import org.springframework.stereotype.Service;
 
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
@@ -21,9 +23,7 @@ import java.util.Optional;
 public class SamtykkeService extends CacheService<SamtykkeResource> {
 
     private final EntityKafkaConsumer<SamtykkeResource> entityKafkaConsumer;
-
     private final SamtykkeLinker linker;
-
     private final SamtykkeResponseKafkaConsumer samtykkeResponseKafkaConsumer;
 
     public SamtykkeService(
@@ -44,11 +44,28 @@ public class SamtykkeService extends CacheService<SamtykkeResource> {
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(SamtykkeResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retention);
+        entityKafkaConsumer.registerListener(SamtykkeResource.class, this::addResourceToCache);
+    }
+
+    private void updateRetensionTime(Header header) {
+        if (header != null) {
+            long retensionTime = getRetensionTime(header.value());
+            if (retensionTime != entityKafkaConsumer.getTopicRetensionTime()) {
+                log.info("Updating retension time for Samtykke cache to: {}", retensionTime);
+                getCache().setRetentionPeriodInMs(retensionTime);
+            }
+        }
+    }
+
+    private long getRetensionTime(byte[] value) {
+        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+        buffer.put(value);
+        buffer.flip();
+        return buffer.getLong();
     }
 
     private void addResourceToCache(ConsumerRecord<String, SamtykkeResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         SamtykkeResource resource = consumerRecord.value();
         if (resource == null) {
@@ -56,7 +73,7 @@ public class SamtykkeService extends CacheService<SamtykkeResource> {
         } else {
             linker.mapLinks(resource);
             this.getCache().put(consumerRecord.key(), resource, linker.hashCodes(resource));
-            if (consumerRecord.headers().lastHeader("event-corr-id") != null){
+            if (consumerRecord.headers().lastHeader("event-corr-id") != null) {
                 String corrId = new String(consumerRecord.headers().lastHeader("event-corr-id").value(), StandardCharsets.UTF_8);
                 log.debug("Adding corrId to EntityResponseCache: {}", corrId);
                 samtykkeResponseKafkaConsumer.getEntityCache().add(corrId, resource);
