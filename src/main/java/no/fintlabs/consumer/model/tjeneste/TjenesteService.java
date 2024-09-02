@@ -48,7 +48,6 @@ public class TjenesteService extends CacheService<TjenesteResource> {
         if (header != null) {
             long retensionTime = getRetensionTime(header.value());
             if (retensionTime != entityKafkaConsumer.getTopicRetensionTime()) {
-                log.info("Updating retension time for Tjeneste cache to: {}", retensionTime);
                 entityKafkaConsumer.setTopicRetensionTime(retensionTime);
                 getCache().setRetentionPeriodInMs(retensionTime);
             }
