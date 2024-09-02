@@ -49,6 +49,7 @@ public class BehandlingService extends CacheService<BehandlingResource> {
             long retensionTime = getRetensionTime(header.value());
             if (retensionTime != entityKafkaConsumer.getTopicRetensionTime()) {
                 log.info("Updating retension time for Samtykke cache to: {}", retensionTime);
+                entityKafkaConsumer.setTopicRetensionTime(retensionTime);
                 getCache().setRetentionPeriodInMs(retensionTime);
             }
         }
