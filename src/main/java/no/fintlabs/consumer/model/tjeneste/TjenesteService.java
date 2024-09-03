@@ -44,23 +44,6 @@ public class TjenesteService extends CacheService<TjenesteResource> {
         entityKafkaConsumer.registerListener(TjenesteResource.class, this::addResourceToCache);
     }
 
-    private void updateRetensionTime(Header header) {
-        if (header != null) {
-            long retensionTime = getRetensionTime(header.value());
-            if (retensionTime != entityKafkaConsumer.getTopicRetensionTime()) {
-                entityKafkaConsumer.setTopicRetensionTime(retensionTime);
-                getCache().setRetentionPeriodInMs(retensionTime);
-            }
-        }
-    }
-
-    private long getRetensionTime(byte[] value) {
-        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-        buffer.put(value);
-        buffer.flip();
-        return buffer.getLong();
-    }
-
     private void addResourceToCache(ConsumerRecord<String, TjenesteResource> consumerRecord) {
         updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();

@@ -13,7 +13,8 @@ public class TjenesteEntityKafkaConsumer extends EntityKafkaConsumer<TjenesteRes
     public TjenesteEntityKafkaConsumer(
             EntityConsumerFactoryService entityConsumerFactoryService,
             ListenerBeanRegistrationService listenerBeanRegistrationService,
-            TjenesteConfig tjenesteConfig) {
-        super(entityConsumerFactoryService, listenerBeanRegistrationService, tjenesteConfig);
+            TjenesteConfig tjenesteConfig,
+            EntityTopicService entityTopicService) {
+        super(entityConsumerFactoryService, listenerBeanRegistrationService, entityTopicService, tjenesteConfig);
     }
 }
